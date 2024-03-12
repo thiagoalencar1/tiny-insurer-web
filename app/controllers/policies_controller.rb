@@ -1,11 +1,30 @@
 # frozen_string_literal: true
 
-require 'net/http'
-
 class PoliciesController < ApplicationController
   def index
-    uri = URI("http://policy-service:3001/v1/policies")
-    response = Net::HTTP.get_response(uri.host, uri.path, uri.port)
-    @policies = JSON.parse(response.body, symbolize_names: true)
+    client = Graphlient::Client.new('http://policy-api:3000/graphql', http_options: { read_timeout: 20, write_timeout: 30 })
+
+    query = QueryHelper::Client.parse <<-'GRAPHQL'
+      query {
+        policies {
+          id
+          insuredAt
+          insuredUntil
+          insured {
+            name
+            cpf
+          }
+          vehicle {
+            plate
+            brand
+            model
+            year
+          }
+        }
+      }
+    GRAPHQL
+
+    response = client.query(query)
+    @policies = response.data.policies
   end
 end

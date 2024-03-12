@@ -91,8 +91,20 @@ GEM
     diff-lcs (1.5.1)
     drb (2.2.1)
     erubi (1.12.0)
+    faraday (2.9.0)
+      faraday-net_http (>= 2.0, < 3.2)
+    faraday-net_http (3.1.0)
+      net-http
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphlient (0.8.0)
+      faraday (~> 2.0)
+      graphql-client
+    graphql (2.2.13)
+      base64
+    graphql-client (0.20.0)
+      activesupport (>= 3.0)
+      graphql (>= 1.13.0)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -117,6 +129,8 @@ GEM
     minitest (5.22.2)
     msgpack (1.7.2)
     mutex_m (0.2.0)
+    net-http (0.4.1)
+      uri
     net-imap (0.4.10)
       date
       net-protocol
@@ -204,6 +218,7 @@ GEM
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uri (0.13.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -221,6 +236,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  graphlient (~> 0.8.0)
   jbuilder
   jsbundling-rails
   propshaft
