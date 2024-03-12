@@ -2,6 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.action_mailer.default_url_options = { host: 'localhost', port: 4000 }
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
@@ -48,7 +49,6 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
@@ -57,4 +57,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Google credential
+  ENV['GOOGLE_CLIENT_ID'] = '1082598981-esb5hca5i7hua7f616fn1063icr5klsc.apps.googleusercontent.com'
+  ENV['GOOGLE_CLIENT_SECRET'] = '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'
 end

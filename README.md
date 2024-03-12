@@ -23,4 +23,4 @@ Things you may want to cover:
 
 * ...
 
-<!-- created with: rails new . --database=sqlite3 -T --javascript=importmaps --asset-pipeline=propshaft --skip-hotwire --skip-docker --skip-action-cable --skip-action-mailer --skip-action-mailbox --skip-action-text --skip-active-job --skip-active-storage --skip-bundle -->
+<!-- created with: rails new . --database=sqlite3 -T --javascript=importmaps --asset-pipeline=propshaft --skip-hotwire --skip-docker --skip-action-cable --skip-action-text --skip-active-job --skip-active-storage --skip-bundle -->
