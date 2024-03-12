@@ -1,0 +1,20 @@
+services:
+  tiny-insurer-web:
+    build: .
+    ports: [4000:4000]
+    working_dir: /app
+    volumes:
+      - .:/app
+      - rubygems:/usr/local/bundle
+    tty: true
+    stdin_open: true
+    networks:
+      - my-bridge
+    # command: bash -c "rm -rf tmp/pids/server.pid && bin/setup && rails s -b 0.0.0.0 -p 4000"
+
+volumes:
+  rubygems:
+
+networks:
+  my-bridge:
+    external: true

@@ -1,0 +1,11 @@
+<h1>Policy List</h1>
+<% @policies.each do |policie| %>
+  <%= policie.id %> <br />
+  <%= policie.insured.name %> <br />
+  <%= policie.insured.cpf %> <br />
+  <%= policie.vehicle.plate %> <br />
+  <%= policie.vehicle.brand %> <%= policie.vehicle.model %> <br />
+  Assegurando em: <%= policie.insured_at %><br />
+  Assegurado até: <%= policie.insured_until %>
+  <br /><br />
+<% end %>
