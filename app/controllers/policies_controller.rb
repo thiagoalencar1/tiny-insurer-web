@@ -4,7 +4,7 @@ class PoliciesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    client = Graphlient::Client.new('http://policy-api:3003/graphql', http_options: { read_timeout: 20, write_timeout: 30 })
+    client = Graphlient::Client.new('http://policy-graphql:3003/graphql', http_options: { read_timeout: 20, write_timeout: 30 })
 
     query = QueryHelper::Client.parse <<-'GRAPHQL'
       query {
