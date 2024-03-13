@@ -1,1 +1,26 @@
 /* Application styles */
+
+body {
+  font-family: sans-serif;
+  line-height: 23px;
+}
+
+.center {
+  text-align: center;
+}
+
+.notice {
+  color: #ffffff;
+  background-color: #baae00; 
+}
+
+.alert {
+  color: #ffffff;
+  background-color: #a80000;
+}
+
+table.policy-list {
+  font-family: monospace;
+  border-spacing: 30px 0px;
+  text-align: center;
+}

@@ -10,13 +10,16 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="container">
 
-    <% if user_signed_in? %>
-      <%= button_to("Log Out", destroy_user_session_path, method: :delete) %>
-    <% end %>
+      <p class="notice center"><%= notice %></p>
+      <p class="alert center"><%= alert %></p>
 
-    <%= yield %>
+      <% if user_signed_in? %>
+        <%= button_to("Log Out", destroy_user_session_path, method: :delete) %>
+      <% end %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
