@@ -120,14 +120,6 @@ GEM
       net-http
     globalid (1.2.1)
       activesupport (>= 6.1)
-    graphlient (0.8.0)
-      faraday (~> 2.0)
-      graphql-client
-    graphql (2.2.13)
-      base64
-    graphql-client (0.20.0)
-      activesupport (>= 3.0)
-      graphql (>= 1.13.0)
     hashie (5.0.0)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
@@ -308,7 +300,6 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   factory_bot_rails
-  graphlient (~> 0.8.0)
   jbuilder
   jsbundling-rails
   jwt (~> 2.8)
