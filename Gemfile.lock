@@ -311,6 +311,7 @@ DEPENDENCIES
   graphlient (~> 0.8.0)
   jbuilder
   jsbundling-rails
+  jwt (~> 2.8)
   omniauth (~> 2.1)
   omniauth-google-oauth2 (~> 1.1)
   omniauth-rails_csrf_protection (~> 1.0)

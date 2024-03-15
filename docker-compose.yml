@@ -1,6 +1,7 @@
 services:
   tiny-insurer-web:
     image: ruby:3.3.0
+    container_name: tiny-insurer-web
     ports: [3000:3000]
     working_dir: /app
     volumes:
