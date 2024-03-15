@@ -2,9 +2,6 @@ source "https://rubygems.org"
 
 ruby "3.3.0"
 
-# Project gems
-gem "graphlient", "~> 0.8.0"
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
@@ -55,7 +52,9 @@ group :development do
   # gem "spring"
 end
 
+# Project gems
 gem "devise", "~> 4.9"
-gem "omniauth", "~> 2.1"
+gem "jwt", "~> 2.8"
 gem "omniauth-google-oauth2", "~> 1.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "omniauth", "~> 2.1"

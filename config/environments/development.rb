@@ -4,6 +4,18 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.default_url_options = { host: 'localhost', port: 4000 }
 
+  config.hosts = [
+    IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
+    IPAddr.new("::/0"),      # All IPv6 addresses.
+    "localhost",
+    "subscription_service",
+    ENV["SERVER_HOST_NAME"],
+    "http://policy-service:3001/",
+    "policy-service:3001",
+    "http://policy-graphql:3003",
+    "policy-graphql:3003"
+  ]
+
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

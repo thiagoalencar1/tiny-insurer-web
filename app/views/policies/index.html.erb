@@ -11,13 +11,13 @@
   </tr>
   <% @policies.each do |policie| %>
     <tr>
-      <td><%= policie.id %></td>
-      <td><%= policie.insured.name %></td>
-      <td><%= policie.insured.cpf %></td>
-      <td><%= policie.vehicle.plate %></td>
-      <td><%= policie.vehicle.brand %> <%= policie.vehicle.model %></td>
-      <td><%= policie.insured_at %></td>
-      <td><%= policie.insured_until %></td>
+      <td><%= policie[:id] %></td>
+      <td><%= policie[:insured][:name] %></td>
+      <td><%= policie[:insured][:cpf] %></td>
+      <td><%= policie[:vehicle][:plate] %></td>
+      <td><%= policie[:vehicle][:brand] %> <%= policie[:vehicle][:model] %></td>
+      <td><%= policie[:insuredAt] %></td>
+      <td><%= policie[:insuredUntil] %></td>
     </tr>
   <% end %>
 </table>
