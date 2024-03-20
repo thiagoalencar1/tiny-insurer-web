@@ -13,7 +13,11 @@ Rails.application.configure do
     "http://policy-service:3001/",
     "policy-service:3001",
     "http://policy-graphql:3003",
-    "policy-graphql:3003"
+    "policy-graphql:3003",
+    "http://tiny-insurer-graphql:3003",
+    "tiny-insurer-graphql",
+    "tiny-insurer-web",
+    "tiny-insurer-web:3000"
   ]
 
   # In the development environment your application's code is reloaded any time
@@ -70,7 +74,5 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
-  # Google credential
-  ENV['GOOGLE_CLIENT_ID'] = '1082598981-esb5hca5i7hua7f616fn1063icr5klsc.apps.googleusercontent.com'
-  ENV['GOOGLE_CLIENT_SECRET'] = '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'
+  # Google credential in .end file
 end
