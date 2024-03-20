@@ -11,6 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to new_user_session_path
     end
   end
+
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: :twitter]
 

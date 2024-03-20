@@ -55,6 +55,7 @@ end
 # Project gems
 gem "devise", "~> 4.9"
 gem "jwt", "~> 2.8"
+gem "omniauth-cognito-idp"
 gem "omniauth-google-oauth2", "~> 1.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "omniauth", "~> 2.1"
