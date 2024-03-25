@@ -11,6 +11,18 @@
 Devise.setup do |config|
   # OmniAuth
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {}
+  config.omniauth :cognito_idp,
+    ENV['CLIENT_ID'],
+    ENV['CLIENT_SECRET'],
+    client_options: {
+      site: ENV['COGNITO_USER_POOL_SITE']
+    },
+    name: 'cognito_idp',
+    scope: 'email openid',
+    region: ENV['AWS_REGION'],
+    user_pool_id: ENV['COGNITO_USER_POOL_ID'],
+    aws_region: ENV['AWS_REGION']
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
