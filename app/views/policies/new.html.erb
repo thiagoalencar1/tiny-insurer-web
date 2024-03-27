@@ -1,0 +1,49 @@
+<h1>Tiny Insurer App</h1>
+<h2>Create Policy</h2>
+<div>
+  <%= form_with url: policies_path do |form| %>
+    <div>
+      <%= form.label :insured_name, 'Nome do segurado' %>
+      <%= form.text_field :insured_name, required: true %>
+    </div>
+
+    <div>
+      <%= form.label :insured_cpf, 'CPF do segurado' %>
+      <%= form.text_field :insured_cpf, required: true %>
+    </div>
+ 
+    <div>
+      <%= form.label :insured_at, 'Segurado em:' %>
+      <%= form.date_field :insured_at,required: true %>
+    </div>
+
+    <div>
+      <%= form.label :insured_until, 'Segurado até:' %>
+      <%= form.date_field :insured_until,required: true %>
+    </div>
+
+    <div>
+      <%= form.label :vehicle_plate, 'Placa do veículo' %>
+      <%= form.text_field :vehicle_plate, required: true %>
+    </div>
+
+    <div>
+      <%= form.label :vehicle_brand, 'Marca do veículo' %>
+      <%= form.text_field :vehicle_brand, required: true %>
+    </div>
+
+    <div>
+      <%= form.label :vehicle_model, 'Modelo do veículo' %>
+      <%= form.text_field :vehicle_model, required: true %>
+    </div>
+
+    <div>
+      <%= form.label :vehicle_year, 'Ano do veículo' %>
+      <%= form.number_field :vehicle_year, required: true %>
+    </div>
+
+    <div>
+      <%= form.submit 'Criar apólice' %>
+    </div>
+  <% end %>
+</div>

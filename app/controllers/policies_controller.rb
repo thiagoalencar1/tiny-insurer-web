@@ -7,11 +7,68 @@ class PoliciesController < ApplicationController
     @policies = retrieve_policies
   end
 
+  def new
+  end
+
+  def create
+    send_request(create_policy_mutation)
+    redirect_to new_payment_path
+  end
+
+  def show
+    redirect_to policies_path
+  end
+
   private
 
   def retrieve_policies
-    response = send_request(query)
+    response = send_request(get_policies_query)
     parse_response(response)
+  end
+
+  def create_policy_mutation
+      {
+        "query": "mutation createPolicyMutation (
+              $insuredAt: String!
+              $insuredUntil: String!
+              $insuredName: String!
+              $insuredCpf: String!
+              $vehiclePlate: String!
+              $vehicleBrand: String!
+              $vehicleModel: String!
+              $vehicleYear: Int!
+        )
+        {
+          createPolicy (
+            input: {
+              policy:{
+                insuredAt: $insuredAt
+                insuredUntil: $insuredUntil
+                insured: {
+                  name: $insuredName,
+                  cpf: $insuredCpf
+                }
+                vehicle: {
+                  plate: $vehiclePlate
+                  brand: $vehicleBrand
+                  model: $vehicleModel
+                  year: $vehicleYear
+                }
+              }
+            }
+          ) { success }
+        }",
+        "variables": {
+          "insuredAt": params[:insured_at],
+          "insuredUntil": params[:insured_until],
+          "insuredName": params[:insured_name],
+          "insuredCpf": params[:insured_cpf],
+          "vehiclePlate": params[:vehicle_plate],
+          "vehicleBrand": params[:vehicle_brand],
+          "vehicleModel": params[:vehicle_model],
+          "vehicleYear": params[:vehicle_year].to_i
+        }
+      }
   end
 
   def send_request(query)
@@ -29,7 +86,7 @@ class PoliciesController < ApplicationController
     JSON.parse(response.body, symbolize_names: true)[:data][:policies]
   end
 
-  def query
+  def get_policies_query
     {
       query: 'query { policies {
         id insuredAt insuredUntil

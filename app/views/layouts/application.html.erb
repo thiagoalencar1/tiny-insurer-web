@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TinyInsurerWeb</title>
+    <title>Tiny Insurer Web</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -15,7 +15,12 @@
       <p class="notice center"><%= notice %></p>
       <p class="alert center"><%= alert %></p>
 
+      <%# Topbar %>
       <% if user_signed_in? %>
+        <%= current_user.email %>
+        <%= button_to 'All Policies', policies_path, method: :get %>
+        <%= button_to 'New policy', new_policy_path, method: :get %>
+
         <%= button_to("Log Out", destroy_user_session_path, method: :delete) %>
       <% end %>
 
