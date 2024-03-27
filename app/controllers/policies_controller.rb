@@ -7,11 +7,45 @@ class PoliciesController < ApplicationController
     @policies = retrieve_policies
   end
 
+  def new
+  end
+
   private
 
   def retrieve_policies
-    response = send_request(query)
+    response = send_request(get_policies_query)
     parse_response(response)
+  end
+
+  def create_policy_mutation(insured_at, insured_until, insured_name, insured_cpf, vehicle_plate, vehicle_brand, vehicle_model, vehicle_year)
+    {
+      query: 'mutation createPolicyMutation(
+        $insuredAt: String!
+        $insuredUntil: String!
+        $insuredName: String!
+        $insuredCpf: String!
+        $vehiclePlate: String!
+        $vehicleBrand: String!
+        $vehicleModel: String!
+        $vehicleYear: Int!
+      ) {
+        createPolicy(
+          input: {
+            policy: {
+              insuredAt: $insuredAt
+              insuredUntil: $insuredUntil
+              insured: { name: $insuredName, cpf: $insuredCpf }
+              vehicle: {
+                plate: $vehiclePlate
+                brand: $vehicleBrand
+                model: $vehicleModel
+                year: $vehicleYear
+              }
+            }
+          }
+        ){ success }
+      }'
+    }
   end
 
   def send_request(query)
@@ -29,7 +63,7 @@ class PoliciesController < ApplicationController
     JSON.parse(response.body, symbolize_names: true)[:data][:policies]
   end
 
-  def query
+  def get_policies_query
     {
       query: 'query { policies {
         id insuredAt insuredUntil

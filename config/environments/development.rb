@@ -5,18 +5,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 4000 }
 
   config.hosts = [
-    IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
-    IPAddr.new("::/0"),      # All IPv6 addresses.
     "localhost",
-    "subscription_service",
-    ENV["SERVER_HOST_NAME"],
-    "http://policy-service:3001/",
-    "policy-service:3001",
-    "http://policy-graphql:3003",
-    "policy-graphql:3003",
-    "http://tiny-insurer-graphql:3003",
-    "tiny-insurer-graphql",
-    "tiny-insurer-web",
     "tiny-insurer-web:3000"
   ]
 

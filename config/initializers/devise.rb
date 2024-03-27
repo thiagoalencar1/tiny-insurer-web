@@ -20,8 +20,7 @@ Devise.setup do |config|
     name: 'cognito_idp',
     scope: 'email openid',
     region: ENV['AWS_REGION'],
-    user_pool_id: ENV['COGNITO_USER_POOL_ID'],
-    aws_region: ENV['AWS_REGION']
+    user_pool_id: ENV['COGNITO_USER_POOL_ID']
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
