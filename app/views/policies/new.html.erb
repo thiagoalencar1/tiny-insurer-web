@@ -1,7 +1,7 @@
 <h1>Tiny Insurer App</h1>
 <h2>Create Policy</h2>
 <div>
-  <%= form_with do |form| %>
+  <%= form_with url: policies_path do |form| %>
     <div>
       <%= form.label :insured_name, 'Nome do segurado' %>
       <%= form.text_field :insured_name %>
@@ -43,7 +43,7 @@
     </div>
 
     <div>
-      <%= form.submit %>
+      <%= form.submit 'Criar apólice' %>
     </div>
   <% end %>
 </div>

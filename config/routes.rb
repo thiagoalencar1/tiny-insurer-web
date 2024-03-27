@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'home#index'
   # get 'policies/index'
-  resources :policies, only: [:index, :new, :create]
+
+  resources :policies
 
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'

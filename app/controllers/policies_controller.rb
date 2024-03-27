@@ -10,6 +10,15 @@ class PoliciesController < ApplicationController
   def new
   end
 
+  def create
+    send_request(create_policy_mutation)
+    redirect_to policies_path
+  end
+
+  def show
+    redirect_to policies_path
+  end
+
   private
 
   def retrieve_policies
@@ -17,35 +26,49 @@ class PoliciesController < ApplicationController
     parse_response(response)
   end
 
-  def create_policy_mutation(insured_at, insured_until, insured_name, insured_cpf, vehicle_plate, vehicle_brand, vehicle_model, vehicle_year)
-    {
-      query: 'mutation createPolicyMutation(
-        $insuredAt: String!
-        $insuredUntil: String!
-        $insuredName: String!
-        $insuredCpf: String!
-        $vehiclePlate: String!
-        $vehicleBrand: String!
-        $vehicleModel: String!
-        $vehicleYear: Int!
-      ) {
-        createPolicy(
-          input: {
-            policy: {
-              insuredAt: $insuredAt
-              insuredUntil: $insuredUntil
-              insured: { name: $insuredName, cpf: $insuredCpf }
-              vehicle: {
-                plate: $vehiclePlate
-                brand: $vehicleBrand
-                model: $vehicleModel
-                year: $vehicleYear
+  def create_policy_mutation
+      {
+        "query": "mutation createPolicyMutation (
+              $insuredAt: String!
+              $insuredUntil: String!
+              $insuredName: String!
+              $insuredCpf: String!
+              $vehiclePlate: String!
+              $vehicleBrand: String!
+              $vehicleModel: String!
+              $vehicleYear: Int!
+        )
+        {
+          createPolicy (
+            input: {
+              policy:{
+                insuredAt: $insuredAt
+                insuredUntil: $insuredUntil
+                insured: {
+                  name: $insuredName,
+                  cpf: $insuredCpf
+                }
+                vehicle: {
+                  plate: $vehiclePlate
+                  brand: $vehicleBrand
+                  model: $vehicleModel
+                  year: $vehicleYear
+                }
               }
             }
-          }
-        ){ success }
-      }'
-    }
+          ) { success }
+        }",
+        "variables": {
+          "insuredAt": params[:insured_at],
+          "insuredUntil": params[:insured_until],
+          "insuredName": params[:insured_name],
+          "insuredCpf": params[:insured_cpf],
+          "vehiclePlate": params[:vehicle_plate],
+          "vehicleBrand": params[:vehicle_brand],
+          "vehicleModel": params[:vehicle_model],
+          "vehicleYear": params[:vehicle_year].to_i
+        }
+      }
   end
 
   def send_request(query)
