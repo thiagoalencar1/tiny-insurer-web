@@ -12,7 +12,7 @@ class PoliciesController < ApplicationController
 
   def create
     send_request(create_policy_mutation)
-    redirect_to policies_path
+    redirect_to new_payment_path
   end
 
   def show
