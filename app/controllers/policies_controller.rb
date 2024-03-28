@@ -4,7 +4,7 @@ class PoliciesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @policies = retrieve_policies
+    @policies = retrieve_policies.reverse
   end
 
   def new
