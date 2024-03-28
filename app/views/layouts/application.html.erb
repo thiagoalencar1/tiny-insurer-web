@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
   <head>
     <title>Tiny Insurer Web</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
 
     <%= stylesheet_link_tag "application" %>
   </head>
@@ -16,15 +17,33 @@
       <p class="alert center"><%= alert %></p>
 
       <%# Topbar %>
-      <% if user_signed_in? %>
-        <%= current_user.email %>
-        <%= button_to 'All Policies', policies_path, method: :get %>
-        <%= button_to 'New policy', new_policy_path, method: :get %>
+      <nav class="navbar" role="navigation" aria-label="main-navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <h1 class="title is-4">Tiny Insurer Web</h1>
+          </a>
+        </div>
 
-        <%= button_to("Log Out", destroy_user_session_path, method: :delete) %>
-      <% end %>
+        <div class="navbar-menu">
+          <div class="navbar-start">
+            <div class="navbar-item"><%= link_to 'Home', root_path, class: 'navbar-item' %>
+            </div>
+            <% if user_signed_in? %>
+              <%= link_to 'All Policies', policies_path, class: 'navbar-item' %>
+              <%= link_to 'New policy', new_policy_path, class: 'navbar-item' %>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="navbar-item"><%= current_user.email %></div>
+                  <%= button_to("Log Out", destroy_user_session_path, method: :delete, class: 'button is-link') %>
+                </div>
+              </div>
+          </div>
+          <% end %>
+        </div>
+      </nav>
 
       <%= yield %>
+
     </div>
   </body>
 </html>

@@ -23,4 +23,5 @@ table.policy-list {
   font-family: monospace;
   border-spacing: 30px 0px;
   text-align: center;
+  margin: 0 auto;
 }
