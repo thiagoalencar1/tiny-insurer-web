@@ -11,39 +11,47 @@
   </head>
 
   <body>
-    <div class="container">
+    <div>
 
       <p class="notice center"><%= notice %></p>
       <p class="alert center"><%= alert %></p>
 
-      <%# Topbar %>
-      <nav class="navbar" role="navigation" aria-label="main-navigation">
+      <%# navbar %>
+      <nav class="navbar is-light is-expanded" role="navigation" aria-label="main-navigation" style="margin: 0px auto 30px">
+      <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
             <h1 class="title is-4">Tiny Insurer Web</h1>
           </a>
         </div>
-
         <div class="navbar-menu">
           <div class="navbar-start">
-            <div class="navbar-item"><%= link_to 'Home', root_path, class: 'navbar-item' %>
-            </div>
             <% if user_signed_in? %>
-              <%= link_to 'All Policies', policies_path, class: 'navbar-item' %>
-              <%= link_to 'New policy', new_policy_path, class: 'navbar-item' %>
-              <div class="navbar-end">
-                <div class="navbar-item">
-                  <div class="navbar-item"><%= current_user.email %></div>
-                  <%= button_to("Log Out", destroy_user_session_path, method: :delete, class: 'button is-link') %>
-                </div>
-              </div>
+              <%= link_to('All Policies', policies_path, class: 'navbar-item') %>
+              <%= link_to('New policy', new_policy_path, class: 'navbar-item') %>
+            <% end %>
           </div>
-          <% end %>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <% if user_signed_in? %>  
+                <div class="navbar-item" style="font-size: 0.8em; font-weight: bold">
+                  <%= current_user.email %>
+                </div>
+                <%= button_to("Log Out", destroy_user_session_path, method: :delete, class: 'button is-danger is-outlined is-small') %>
+              <% else %>
+                <%= link_to("Sign In", new_user_session_path, class: 'button is-link is-small') %>
+              <% end %>
+            </div>
+          </div>
         </div>
+      </div>
       </nav>
+      <%# end navbar %>
 
       <%= yield %>
 
+    </div>
+    <div class="footer">
     </div>
   </body>
 </html>

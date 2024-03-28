@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   get 'payments/success'
   get 'payments/cancel'
 
-
   # rails_health_check
   get "up" => "rails/health#show", as: :rails_health_check
 end
