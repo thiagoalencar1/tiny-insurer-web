@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html data-theme="light">
   <head>
-    <title>Tiny Insurer Web</title>
+    <title>Tiny Insurer</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <script src="https://js.stripe.com/v3/"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-
     <%= stylesheet_link_tag "application" %>
   </head>
 
@@ -21,7 +21,7 @@
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
-            <h1 class="title is-4">Tiny Insurer Web</h1>
+            <h1 class="title is-4">Tiny Insurer</h1>
           </a>
         </div>
         <div class="navbar-menu">

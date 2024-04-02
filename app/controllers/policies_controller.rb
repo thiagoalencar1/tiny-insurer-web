@@ -12,7 +12,9 @@ class PoliciesController < ApplicationController
 
   def create
     send_request(create_policy_mutation)
-    redirect_to new_payment_path
+    redirect_to policies_path
+    # redirect_to new_payment_path
+
   end
 
   def show
@@ -37,6 +39,7 @@ class PoliciesController < ApplicationController
               $vehicleBrand: String!
               $vehicleModel: String!
               $vehicleYear: Int!
+              $status: String!
         )
         {
           createPolicy (
@@ -44,6 +47,7 @@ class PoliciesController < ApplicationController
               policy:{
                 insuredAt: $insuredAt
                 insuredUntil: $insuredUntil
+                status: $status
                 insured: {
                   name: $insuredName,
                   cpf: $insuredCpf
@@ -61,6 +65,7 @@ class PoliciesController < ApplicationController
         "variables": {
           "insuredAt": params[:insured_at],
           "insuredUntil": params[:insured_until],
+          "status": "pending",
           "insuredName": params[:insured_name],
           "insuredCpf": params[:insured_cpf],
           "vehiclePlate": params[:vehicle_plate],
@@ -89,7 +94,7 @@ class PoliciesController < ApplicationController
   def get_policies_query
     {
       query: 'query { policies {
-        id insuredAt insuredUntil
+        id status insuredAt insuredUntil
         insured { name cpf }
         vehicle { plate brand model year }
         }
