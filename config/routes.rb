@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   }
 
   # stripe
-  resources :payments
-  post 'payments/create'
+  resources :payments, only: [:new, :create]
   get 'payments/success'
   get 'payments/cancel'
 
