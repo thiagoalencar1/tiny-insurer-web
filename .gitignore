@@ -37,4 +37,4 @@
 /config/master.key
 
 # ENV_FILE
-.e
+.env
