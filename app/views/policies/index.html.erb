@@ -8,6 +8,8 @@
     <th>Vehicle Brand and Model</th>
     <th>Insured at</th>
     <th>Insured until</th>
+    <th>Status</th>
+    <th>Payment Link</th>
   </tr>
   <% @policies.each do |policie| %>
     <tr>
@@ -18,6 +20,10 @@
       <td><%= policie[:vehicle][:brand] %> <%= policie[:vehicle][:model] %></td>
       <td><%= policie[:insuredAt] %></td>
       <td><%= policie[:insuredUntil] %></td>
+      <td><%= policie[:status] %></td>
+      <td style="max-width: 200px; overflow: hidden;">
+        <a href="<%= policie[:paymentLink] %>" target="_blank"><%= policie[:paymentLink] %></a>
+      </td>
     </tr>
   <% end %>
 </table>

@@ -4,6 +4,7 @@ class PoliciesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    return nil if retrieve_policies.nil?
     @policies = retrieve_policies.reverse
   end
 
@@ -11,8 +12,30 @@ class PoliciesController < ApplicationController
   end
 
   def create
+    customer = Stripe::Customer.create(
+      # name: current_user.full_name,
+      email: current_user.email,
+      description: "Customer id: #{current_user.id}",
+    )
+
+    session = Stripe::Checkout::Session.create( 
+      customer: customer,
+      payment_method_types: ['card'],
+      line_items: [{
+        price: 'price_1Oz13BAHgxUyd1DWBsgPqlxJ', #price api id usually starts with price_ApIiD
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url:  payments_success_url,
+      cancel_url: payments_cancel_url
+     )
+
+    @payment_id = session.id
+    @payment_url = session.url
+
     send_request(create_policy_mutation)
-    redirect_to new_payment_path
+
+    redirect_to policies_path #, allow_other_host: true
   end
 
   def show
@@ -27,48 +50,57 @@ class PoliciesController < ApplicationController
   end
 
   def create_policy_mutation
+    {
+      "query": "mutation createPolicyMutation (
+            $insuredAt: String!
+            $insuredUntil: String!
+            $insuredName: String!
+            $insuredCpf: String!
+            $vehiclePlate: String!
+            $vehicleBrand: String!
+            $vehicleModel: String!
+            $vehicleYear: Int!
+            $status: String!
+            $paymentId: String!
+            $paymentLink: String!
+      )
       {
-        "query": "mutation createPolicyMutation (
-              $insuredAt: String!
-              $insuredUntil: String!
-              $insuredName: String!
-              $insuredCpf: String!
-              $vehiclePlate: String!
-              $vehicleBrand: String!
-              $vehicleModel: String!
-              $vehicleYear: Int!
-        )
-        {
-          createPolicy (
-            input: {
-              policy:{
-                insuredAt: $insuredAt
-                insuredUntil: $insuredUntil
-                insured: {
-                  name: $insuredName,
-                  cpf: $insuredCpf
-                }
-                vehicle: {
-                  plate: $vehiclePlate
-                  brand: $vehicleBrand
-                  model: $vehicleModel
-                  year: $vehicleYear
-                }
+        createPolicy (
+          input: {
+            policy:{
+              insuredAt: $insuredAt
+              insuredUntil: $insuredUntil
+              status: $status
+              paymentId: $paymentId
+              paymentLink: $paymentLink
+              insured: {
+                name: $insuredName,
+                cpf: $insuredCpf
+              }
+              vehicle: {
+                plate: $vehiclePlate
+                brand: $vehicleBrand
+                model: $vehicleModel
+                year: $vehicleYear
               }
             }
-          ) { success }
-        }",
-        "variables": {
-          "insuredAt": params[:insured_at],
-          "insuredUntil": params[:insured_until],
-          "insuredName": params[:insured_name],
-          "insuredCpf": params[:insured_cpf],
-          "vehiclePlate": params[:vehicle_plate],
-          "vehicleBrand": params[:vehicle_brand],
-          "vehicleModel": params[:vehicle_model],
-          "vehicleYear": params[:vehicle_year].to_i
-        }
+          }
+        ) { success }
+      }",
+      "variables": {
+        "insuredAt": params[:insured_at],
+        "insuredUntil": params[:insured_until],
+        "status": "pending",
+        "insuredName": params[:insured_name],
+        "insuredCpf": params[:insured_cpf],
+        "vehiclePlate": params[:vehicle_plate],
+        "vehicleBrand": params[:vehicle_brand],
+        "vehicleModel": params[:vehicle_model],
+        "vehicleYear": params[:vehicle_year].to_i,
+        "paymentId": @payment_id,
+        "paymentLink": @payment_url
       }
+    }
   end
 
   def send_request(query)
@@ -89,7 +121,7 @@ class PoliciesController < ApplicationController
   def get_policies_query
     {
       query: 'query { policies {
-        id insuredAt insuredUntil
+        id status insuredAt insuredUntil paymentId paymentLink
         insured { name cpf }
         vehicle { plate brand model year }
         }

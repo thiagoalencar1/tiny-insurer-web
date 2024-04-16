@@ -6,8 +6,11 @@ Rails.application.configure do
 
   config.hosts = [
     "localhost",
-    "tiny-insurer-web:3000"
+    "tiny-insurer-web:3000",
+    "equal-purely-flamingo.ngrok-free.app"
   ]
+
+  config.web_console.permissions = '172.19.0.1'
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
