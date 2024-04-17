@@ -4,6 +4,7 @@ class PoliciesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    sleep(1)
     return nil if retrieve_policies.nil?
     @policies = retrieve_policies.reverse
   end
@@ -12,17 +13,10 @@ class PoliciesController < ApplicationController
   end
 
   def create
-    customer = Stripe::Customer.create(
-      # name: current_user.full_name,
-      email: current_user.email,
-      description: "Customer id: #{current_user.id}",
-    )
-
     session = Stripe::Checkout::Session.create( 
-      customer: customer,
       payment_method_types: ['card'],
       line_items: [{
-        price: 'price_1Oz13BAHgxUyd1DWBsgPqlxJ', #price api id usually starts with price_ApIiD
+        price: 'price_1Oz13BAHgxUyd1DWBsgPqlxJ',
         quantity: 1,
       }],
       mode: 'payment',
@@ -35,7 +29,7 @@ class PoliciesController < ApplicationController
 
     send_request(create_policy_mutation)
 
-    redirect_to policies_path #, allow_other_host: true
+    redirect_to policies_path
   end
 
   def show
