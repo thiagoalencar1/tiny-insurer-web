@@ -5,11 +5,11 @@ class PaymentsController < ApplicationController
   
   def success
     #handle successful payments
-    render 'payments/success', notice: "Purchase Successful"
+    render 'payments/success', notice: "Compra bem sucedida!"
   end
   
   def cancel
     #handle if the payment is cancelled
-    render 'payments/cancel', notice: "Purchase Unsuccessful"
+    render 'payments/cancel', notice: "Falha no processo de compra."
   end
 end
