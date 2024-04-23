@@ -1,0 +1,10 @@
+# The config/cable.yml  file is a configuration file for Action Cable, which is a feature of Rails that allows for real-time communication between the server and the client. In this file, we are setting the adapter to  async  for all environments. This means that Action Cable will use the async adapter for handling connections in all environments.
+
+development:
+  adapter: async
+
+test:
+  adapter: async
+
+production:
+  adapter: async

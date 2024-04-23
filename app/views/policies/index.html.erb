@@ -1,5 +1,5 @@
 <script>
-  const socket = new WebSocket('ws://localhost:3001/cable');
+  const socket = new WebSocket('ws://localhost:3000/cable');
 
   socket.onopen = function(event) {
     const subscribe_msg = {
@@ -11,17 +11,22 @@
 
   socket.onmessage = function(event) {
     const data = JSON.parse(event.data);
+
     if (data.type === 'ping') { return; }
     if (data.message) {
       updatedPolicy = JSON.parse(data.message);
+
       const policyId = updatedPolicy.id;
       const status = updatedPolicy.status;
+      
       policy = document.getElementById(`status-${policyId}`)
+      policy.innerHTML = status.fontcolor('green');
+
       alert = document.getElementById('policy-updated')
       alert.removeAttribute('hidden');
       alert.insertAdjacentHTML('beforeend', `Apólice de número ${policyId} foi paga com sucesso!`);
     }
-    console.log("Received data from server", event.data);
+    console.log("Received data from server", JSON.parse(event.data));
   };
 
   const msg = {
