@@ -13,7 +13,8 @@ class PaymentsController < ApplicationController
     render 'payments/cancel', notice: "Falha no processo de compra."
   end
 
-  def confirm_payment
+  def live_confirm
+    # PaymentUpdatesChannel.broadcast_to("PaymentUpdatesChannel", "Hello from the controller.")
     ActionCable.server.broadcast("PaymentUpdatesChannel", params.to_json)
   end
 end

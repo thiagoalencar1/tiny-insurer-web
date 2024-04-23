@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   # websocket / payments confirmations
   mount ActionCable.server => '/cable'
-  post "/confirm_payment", to: "payments#confirm_payment"
+  post "/live_confirm", to: "payments#live_confirm"
 
   # rails_health_check
   get "up" => "rails/health#show", as: :rails_health_check
