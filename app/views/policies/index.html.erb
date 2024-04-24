@@ -1,3 +1,58 @@
+<script>
+  const socket = new WebSocket('ws://localhost:3000/cable');
+
+  socket.onopen = function(event) {
+    const subscribe_msg = {
+        command: 'subscribe',
+        identifier: JSON.stringify({ channel: 'PaymentUpdatesChannel' }),
+    };
+    socket.send(JSON.stringify(subscribe_msg));
+  };
+
+  socket.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+
+    if (data.type === 'ping') { return; }
+    if (data.message) {
+      updatedPolicy = JSON.parse(data.message);
+
+      const policyId = updatedPolicy.id;
+      const status = updatedPolicy.status;
+      
+      policy = document.getElementById(`status-${policyId}`)
+      policy.innerHTML = status.fontcolor('green');
+
+      alert = document.getElementById('policy-updated')
+      alert.removeAttribute('hidden');
+      alert.insertAdjacentHTML('beforeend', `Apólice de número ${policyId} foi paga com sucesso!`);
+    }
+
+    console.log("Received data from server", JSON.parse(event.data));
+  };
+
+  // Caso seja necessário enviar uma mensagem para o servidor rails, esse aqui é o formato aceito pelo ActionCable
+  // - referência: https://www.mintbit.com/blog/subscribing-sending-and-receiving-actioncable-messages-with-js
+  const msg = {
+    command: 'message',
+    identifier: JSON.stringify({channel: 'PaymentUpdatesChannel'}),
+    data: JSON.stringify({'message': 'Hi'})
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+      const $notification = $delete.parentNode;
+
+      $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+      });
+    });
+  });
+</script>
+
+<div class="notification is-success" hidden id="policy-updated" style="max-width: 500px; margin-right: 0px; margin-left: auto;">
+  <button class="delete"></button>
+</div>
+
 <h1 class="title is-2 center">All policies</h1>
 <table class="policy-list table is-hoverable">
   <tr>
@@ -11,18 +66,18 @@
     <th>Status</th>
     <th>Payment Link</th>
   </tr>
-  <% @policies.each do |policie| %>
+  <% @policies.each do |policy| %>
     <tr>
-      <td><%= policie[:id] %></td>
-      <td><%= policie[:insured][:name] %></td>
-      <td><%= policie[:insured][:cpf] %></td>
-      <td><%= policie[:vehicle][:plate] %></td>
-      <td><%= policie[:vehicle][:brand] %> <%= policie[:vehicle][:model] %></td>
-      <td><%= policie[:insuredAt] %></td>
-      <td><%= policie[:insuredUntil] %></td>
-      <td><%= policie[:status] %></td>
+      <td><%= policy[:id] %></td>
+      <td><%= policy[:insured][:name] %></td>
+      <td><%= policy[:insured][:cpf] %></td>
+      <td><%= policy[:vehicle][:plate] %></td>
+      <td><%= policy[:vehicle][:brand] %> <%= policy[:vehicle][:model] %></td>
+      <td><%= policy[:insuredAt] %></td>
+      <td><%= policy[:insuredUntil] %></td>
+      <td id="status-<%= policy[:id] %>"><%= policy[:status] %></td>
       <td style="max-width: 200px; overflow: hidden;">
-        <a href="<%= policie[:paymentLink] %>" target="_blank"><%= policie[:paymentLink] %></a>
+        <a href="<%= policy[:paymentLink] %>" target="_blank"><%= policy[:paymentLink] %></a>
       </td>
     </tr>
   <% end %>

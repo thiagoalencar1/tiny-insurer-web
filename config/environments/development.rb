@@ -7,7 +7,8 @@ Rails.application.configure do
   config.hosts = [
     "localhost",
     "tiny-insurer-web:3000",
-    "equal-purely-flamingo.ngrok-free.app"
+    "equal-purely-flamingo.ngrok-free.app",
+    "http://tiny-insurer-rest:3001"
   ]
 
   config.web_console.permissions = '172.19.0.1'

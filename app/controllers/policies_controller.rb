@@ -15,6 +15,13 @@ class PoliciesController < ApplicationController
   end
 
   def create
+    # Utilizei aqui o Checkout::Session para criar um link de pagamento.
+    # Poderia ser utilizado o PaymentIntent ou o PaymentLink.
+    # Preferi o Checkout::Session pois, na experiência que tive,
+    # foi o único que expirou o link após a efetivação do pagamento.
+    # Também é válido deixar registrado que, no cenário de ser uma sessão criada
+    # dentro de uma sessão de usuário, pode-se criar um customer e associar
+    # o pagamento a ele, tornando o processo mais fácil.
     session = Stripe::Checkout::Session.create( 
       payment_method_types: ['card'],
       line_items: [{
