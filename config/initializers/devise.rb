@@ -10,6 +10,8 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # OmniAuth
+  #  Quando o devise não está instalado, pode-se utilizar estas configurações do omniauth em um middleware, conforme o
+  #  seguinte exemplo: https://github.com/Guifs100/rails-on-web/blob/5a7b8ab51c0c60b61ef7b534aa7db004c7f54e99/config/initializers/ominiauth.rb
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {}
   config.omniauth :cognito_idp,
     ENV['CLIENT_ID'],
@@ -18,7 +20,7 @@ Devise.setup do |config|
       site: ENV['COGNITO_USER_POOL_SITE']
     },
     name: 'cognito_idp',
-    scope: 'email openid',
+    scope: 'email openid', # Aqui é importante ter apenas esses dois itens. Houveram falhas tanto quando tinham mais, quanto menos opções.
     region: ENV['AWS_REGION'],
     user_pool_id: ENV['COGNITO_USER_POOL_ID']
 
