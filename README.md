@@ -1,26 +1,7 @@
 # README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is a three-part app:
+- Tiny Insurer Web (this)
+- [Tiny Insurer GrapgQL](https://github.com/thiagoalencar1/tiny-insurer-graphql)
+- [Tiny Insurer Rest](https://github.com/thiagoalencar1/tiny-insurer-rest)
 
 <!-- created with: rails new . --database=sqlite3 -T --javascript=importmaps --asset-pipeline=propshaft --skip-hotwire --skip-docker --skip-action-cable --skip-action-text --skip-active-job --skip-active-storage --skip-bundle -->
